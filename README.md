@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# TradeView
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**TradeView** is a modern React application for stock data visualization. It provides investors and traders with intuitive tools to analyze stock trends, visualize historical data, and track key metrics in real-time.
 
-## Available Scripts
+TradeView connects to the **TradeInsight** backend, which leverages the **Alpha Vantage API** to fetch comprehensive stock data and process it for frontend consumption.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend (TradeView)
+- **Interactive Stock Charts**: Visualize stock performance using advanced charting libraries like Chart.js or D3.js.
+- **Real-time Data Updates**: Stay updated with the latest market trends.
+- **Technical Indicators**: Explore moving averages, RSI, and other key indicators.
+- **User Authentication**: Secure login using OAuth.
+- **Custom Watchlists**: Save and monitor stocks of interest.
+- **News Integration**: Displays relevant financial news and trending articles.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend (TradeInsight)
+- **Stock Data API**: Integrates with the Alpha Vantage API for real-time and historical stock data.
+- **Data Processing**: Aggregates and optimizes data for the frontend.
+- **Predictive Insights**: *(Planned)* Machine learning models for price and volume trend predictions.
+- **User Management**: Supports user registration and authentication using Spring Security.
+- **RESTful API Endpoints**: Efficient data exchange between frontend and backend.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+### Frontend
+- **React.js**: Modern JavaScript library for building user interfaces.
+- **Chart.js** / **D3.js**: Data visualization libraries for interactive charts.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
+- **Spring Boot**: Java framework for building robust backend services.
+- **Alpha Vantage API**: Third-party API for stock data.
+- **PostgreSQL** / **MongoDB**: Database for storing user data and stock information.
+- **Python (Planned)**: For machine learning and predictive analytics.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+### Prerequisites
+- **Node.js** and **npm/yarn** for running the frontend.
+- **Java 17+** and **Maven** for the backend.
+- Access to the **Alpha Vantage API** (API Key required).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Frontend Setup
+1. Clone the TradeView repository:
+   ```bash
+   git clone https://github.com/yourusername/TradeView.git
+   cd TradeView
+   
+2. Install dependencies
+```bash
+    npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Start development server
+```bash
+    npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
