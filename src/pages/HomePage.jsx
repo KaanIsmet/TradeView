@@ -1,10 +1,13 @@
 import React from "react";
+import Form from "../components/Form";
+import {Navigate, useNavigate} from "react-router-dom";
 
 
 function HomePage() {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [message, setMessage] = React.useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,6 +21,7 @@ function HomePage() {
             if (respond.ok) {
                 const result = await respond.json();
                 setMessage(result.message || "Login Successful");
+                navigate("/stocks")
             }
 
             else
@@ -33,41 +37,20 @@ function HomePage() {
     return (
         <div className="bg-gradient-to-r from-black via-blue-900 to-indigo-800 bg-cover bg-center min-h-screen relative">
             {/* Add a moving starry effect */}
-            <div className="absolute inset-0 bg-black opacity-60 z-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] bg-fixed"></div>
-
-            {/* Dark overlay on the background */}
-            <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
+            <div className="absolute inset-0 bg-black opacity-70 z-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] bg-fixed"></div>
             {/* Main content */}
             <div className="text-center text-white pt-40 relative z-10">
                 <h1 className="text-5xl font-bold">Welcome to TradeView</h1>
                 <p className="mt-4 text-lg">Explore the stock market with powerful insights</p>
-                <form className="flex flex-col items-center mt-6" onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        className="px-4 py-2 rounded bg-gray-700 text-white mb-4"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="px-4 py-2 rounded bg-gray-700 text-white mb-4"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <button
-                        type="submit"
-                        className="bg-blue-600 px-6 py-2 rounded text-white hover:bg-blue-700"
-                    >
-                        Login
-                    </button>
-                </form>
-
-                {/* Feedback message */}
-                {message && <p className="mt-4 text-red-500">{message}</p>}
+                {/* Render the Form Component */}
+                <Form
+                    username={username}
+                    setUsername={setUsername}
+                    password={password}
+                    setPassword={setPassword}
+                    handleSubmit={handleSubmit}
+                    message={message}
+                />
             </div>
         </div>
     );

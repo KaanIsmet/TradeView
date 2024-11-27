@@ -3,13 +3,12 @@ import {Link} from "react-router-dom";
 
 const Navbar = () => {
     return (
-        <nav className="bg-black text-white shadow-lg">
+        <nav className="bg-gradient-to-r from-black from-15% to-indigo-700 text-white shadow-md">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
                 {/* Title */}
                 <h1 className="text-2xl font-bold">
                     TradeView
                 </h1>
-
                 {/* Navigation Links */}
                 <ul className="flex space-x-4">
                     <li>
