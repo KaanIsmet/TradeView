@@ -1,33 +1,58 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import LinePlot from "../components/LinePlot";
+import StocksForm from "../components/StocksForm";
+import { useNavigate } from "react-router-dom";
 
-function Stocks() {
+
+function StocksPage() {
+    const [stockSymbol, setStockSymbol] = React.useState("")
+    const [stockFunction, setStockFunction] = React.useState("")
+    const [interval, setInterval] = React.useState("")
+
+
+
+    const handleSubmit = async (e) => {
+        try {
+
+            const response = await fetch(`http://localhost:8080/api/v1/stocks/${stockSymbol}/${stockFunction}/${interval}`, {
+                method: "GET",
+                headers: {"Content-Type": "application/json"}
+            });
+
+            if (response.ok) {
+                console.log("stock confirmed")
+            }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+
+
     return (
-        <nav className="bg-black text-white shadow-lg">
-            <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-                {/* Title */}
-                <h1 className="text-2xl font-bold">
-                    TradeView
-                </h1>
-
-                {/* Navigation Links */}
-                <ul className="flex space-x-4">
-                    <li>
-                        {/*<a href="/" className="hover:text-gray-200 transition">Home</a>*/}
-                        <Link to="/" className={"hover:text-gray-200 transition"}>Home</Link>
-                    </li>
-                    <li>
-                        {/*<a href="/stocks" className="hover:text-gray-200 transition">Stocks</a>*/}
-                        <Link to={"/stocks"} className={"hover:text-gray-200 transition"}>Stocks</Link>
-                    </li>
-                    <li>
-                        {/*<a href="/about" className="hover:text-gray-200 transition">About</a>*/}
-                        <Link to={"/about"} className={"hover:text-gray-200 transition"}>About</Link>
-                    </li>
-                </ul>
+        <div
+            className={"bg-gradient-to-r from-black via-blue-900 to-indigo-800 bg-cover bg-center min-h-screen relative"}>
+            <div
+                className="absolute inset-0 bg-black opacity-70 z-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] bg-fixed">
             </div>
-        </nav>
+            <div className="text-center text-white pt-40 relative z-10">
+            <h1 className="text-5xl font-bold">TradeView</h1>
+            <p className="mt-4 text-lg">Search for stock information and visualize market data with ease</p>
+                <StocksForm
+                    stockSymbol={stockSymbol}
+                    setStockSymbol={setStockSymbol}
+                    stockFunction={stockFunction}
+                    setStockFunction={setStockFunction}
+                    interval={interval}
+                    setInterval={setInterval}
+                    handleSubmit={handleSubmit}
+                />
+
+            </div>
+            
+        </div>
     )
 }
 
-export default Stocks;
+export default StocksPage;
