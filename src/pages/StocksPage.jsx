@@ -1,16 +1,19 @@
 import React from "react";
 import LinePlot from "../components/LinePlot";
 import StocksForm from "../components/StocksForm";
+import { useNavigate } from "react-router-dom";
 
 
-function Stocks() {
+function StocksPage() {
     const [stockSymbol, setStockSymbol] = React.useState("")
     const [stockFunction, setStockFunction] = React.useState("")
     const [interval, setInterval] = React.useState("")
 
 
+
     const handleSubmit = async (e) => {
         try {
+
             const response = await fetch(`http://localhost:8080/api/v1/stocks/${stockSymbol}/${stockFunction}/${interval}`, {
                 method: "GET",
                 headers: {"Content-Type": "application/json"}
@@ -18,7 +21,6 @@ function Stocks() {
 
             if (response.ok) {
                 console.log("stock confirmed")
-
             }
         }
         catch (e) {
@@ -53,4 +55,4 @@ function Stocks() {
     )
 }
 
-export default Stocks;
+export default StocksPage;
