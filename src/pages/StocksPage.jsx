@@ -2,12 +2,15 @@ import React from "react";
 import LinePlot from "../components/LinePlot";
 import StocksForm from "../components/StocksForm";
 import { useNavigate } from "react-router-dom";
+import { symbol } from "d3";
+import { Stock } from "../models/Stock";
 
 
 function StocksPage() {
     const [stockSymbol, setStockSymbol] = React.useState("")
     const [stockFunction, setStockFunction] = React.useState("")
     const [interval, setInterval] = React.useState("")
+    const [stockData, setStockData] = React.useState("")
 
 
 
@@ -20,7 +23,12 @@ function StocksPage() {
             });
 
             if (response.ok) {
+                const data = await response.json()
+                setStockData(data)
+                const stock = new Stock (symbol, stockData)
                 console.log("stock confirmed")
+                
+
             }
         }
         catch (e) {
