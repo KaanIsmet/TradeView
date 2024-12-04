@@ -5,39 +5,43 @@ import { useNavigate } from "react-router-dom";
 import { symbol } from "d3";
 import { Stock } from "../models/Stock";
 
-
 function StocksPage() {
     const [stockSymbol, setStockSymbol] = React.useState("")
     const [stockFunction, setStockFunction] = React.useState("")
     const [interval, setInterval] = React.useState("")
     const [stockData, setStockData] = React.useState("")
 
-
-
     const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
+            let response;
 
-            const response = await fetch(`http://localhost:8080/api/v1/stocks/${stockSymbol}/${stockFunction}/${interval}`, {
-                method: "GET",
-                headers: {"Content-Type": "application/json"}
-            });
-
+            if (interval === "") {
+                response = await fetch(`http://localhost:8080/api/v1/stocks/${stockSymbol}/${stockFunction}`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json"}
+                });
+            }
+            else {
+                response = await fetch(`http://localhost:8080/api/v1/stocks/${stockSymbol}/${stockFunction}/${interval}`, {
+                    method: "GET",
+                    headers: {"Content-Type": "application/json"}
+                });
+            }
             if (response.ok) {
                 const data = await response.json()
                 setStockData(data)
                 const stock = new Stock (symbol, stockData)
                 console.log("stock confirmed")
-                
-
+            }
+            else {
+                console.log("unable to fetch stock data")
             }
         }
         catch (e) {
             console.log(e)
         }
     }
-
-
-
     return (
         <div
             className={"bg-gradient-to-r from-black via-blue-900 to-indigo-800 bg-cover bg-center min-h-screen relative"}>
@@ -56,11 +60,8 @@ function StocksPage() {
                     setInterval={setInterval}
                     handleSubmit={handleSubmit}
                 />
-
             </div>
-            
         </div>
     )
 }
-
 export default StocksPage;

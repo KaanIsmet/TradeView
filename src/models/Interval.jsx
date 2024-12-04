@@ -8,7 +8,7 @@
         int volume
 */
 
-class Interval {
+export class Interval {
     constructor(open, high, low, close, volume) {
         this.open = open
         this.high = high
