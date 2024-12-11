@@ -20,39 +20,27 @@
         double close
         int volume
 */
-import { Interval } from "./Interval"
-import { TimeSeries } from "./TimeSeries"
 
 
 export class Stock {
 
     constructor(symbol, stockFunction ,data) {
         this.symbol = symbol
-        this.stockFunction = stockFunction
-        this.timeSeries = []
-
-        this.processData(data)
+        this.stockFunction = stockFunction.split("_").join(" ")
+        this.timeSeries = this.processData(data)
 
     }
 
     processData(data) {
-        if (data && data[this.stockFunction] && typeof data[this.stockFunction] === "object") {
-            const timeSeriesData = data[this.stockFunction]
-            for (const [time, intervalData] of Object.entries(timeSeriesData)) {
-                const interval = new Interval (
-                    parseFloat(intervalData["1. open"]),
-                    parseFloat(intervalData["2. high"]),
-                    parseFloat(intervalData["3. low"]),
-                    parseFloat(intervalData["4. close"]),
-                    parseInt(intervalData["5. volume"])
-                )
-                const timeSeries = new TimeSeries (time, interval)
-                this.timeSeries.push(timeSeries)
-
-            }
+        console.log(data)
+        console.log(this.stockFunction)
+        if (typeof data === "object" && data !== null) {
+            console.log("stock data has been processed")
+            return data
         }
         else {
             console.log("unable to read data")
+            return null
         }
 
     }

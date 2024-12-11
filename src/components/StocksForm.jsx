@@ -26,12 +26,12 @@ function StocksForm({stockSymbol, setStockSymbol, stockFunction, setStockFunctio
                     className="p-2 border border-gray-300 rounded-md bg-transparent text-white focus:outline-none"
                     >
                             <option value={""} disabled>Select an option</option>
-                            <option value={"intraday"}>intraday</option>
-                            <option value={"daily"}>daily</option>
-                            <option value={"weekly"}>weekly</option>
-                            <option value={"monthly"}>monthly</option>
+                            <option value={"TIME_SERIES_INTRADAY"}>intraday</option>
+                            <option value={"TIME_SERIES_DAILY"}>daily</option>
+                            <option value={"TIME_SERIES_WEEKLY"}>weekly</option>
+                            <option value={"TIME_SERIES_MONTHLY"}>monthly</option>
                     </select>
-                    {stockFunction == "intraday" && (
+                    {stockFunction === "TIME_SERIES_INTRADAY" && (
                         <div className="flex flex-col space-y-2">
                             <label htmlFor="interval" className="text-left text-lg font-semibold mb-2">
                             Interval
