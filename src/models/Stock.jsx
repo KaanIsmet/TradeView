@@ -60,4 +60,12 @@ export class Stock {
     setTimeSeries(timeSeries) {
         this.timeSeries = timeSeries
     }
+
+    getStockFunction() {
+        return this.stockFunction
+    }
+
+    setStockFunction(stockFunction) {
+        this.stockFunction = stockFunction
+    }
 }
