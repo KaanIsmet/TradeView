@@ -31,7 +31,7 @@ function StocksPage() {
             if (response.ok) {
                 const data = await response.json()
                 setStockData(data)
-                const stock = new Stock (symbol, stockData)
+                const stock = new Stock (symbol, stockFunction ,stockData)
                 console.log("stock confirmed")
             }
             else {
