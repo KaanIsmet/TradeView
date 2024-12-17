@@ -31,18 +31,9 @@ function StocksPage() {
             if (response.ok) {
                 const data = await response.json()
                 const stock = new Stock (symbol, stockFunction ,data)
-                const timeSeries = data["Monthly Time Series"] || {};
-                const processedData = Object.entries(timeSeries).map(
-                    ([date, values]) => ({
-                        date,
-                        close: parseFloat(values["4. close"])
-                    })
-                );
-                setStockData(processedData)
-                console.log(processedData)
+                const timeSeries = stock.getTimeSeries() || {};
+                setStockData(timeSeries)
                 console.log(timeSeries)
-                //console.log("stock confirmed")
-                
             }
             else {
                 console.log("unable to fetch stock data")
