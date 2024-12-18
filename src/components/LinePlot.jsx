@@ -5,12 +5,23 @@ function LinePlot({ data }) {
     const svgRef = useRef();
 
     useEffect(() => {
+        if (!data || data.length === 0) {
+            console.error("No available data for plotting")
+            return;
+        }
+
+
         const svg = d3.select(svgRef.current);
         const width = 800;
         const height = 400;
         const margin = { top: 20, right: 30, bottom: 30, left: 50 };
 
         svg.selectAll("*").remove();
+
+        const parsedData = data.map((d) => ({
+            date: new Date(d.date),
+            close: d.close
+        }));
 
         const x = d3
             .scaleTime()
@@ -33,11 +44,11 @@ function LinePlot({ data }) {
 
         const line = d3
             .line()
-            .x((d) => x(new Date(d.date)))
+            .x((d) => x(d.date))
             .y((d) => y(d.close));
 
         svg.append("path")
-            .datum(data)
+            .datum(parsedData)
             .attr("fill", "none")
             .attr("stroke", "steelblue")
             .attr("stroke-width", 1.5)

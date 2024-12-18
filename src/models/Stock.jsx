@@ -22,6 +22,7 @@
 */
 
 
+
 export class Stock {
 
     constructor(symbol, stockFunction ,data) {
@@ -43,34 +44,31 @@ export class Stock {
     }
 
     processData(data) {
-        const currentYear = new Date().getFullYear()
-        const fiveYearsAgo = currentYear - 5
-        console.log(data)
-        console.log(this.stockFunction)
+        const currentYear = new Date().getFullYear();
+        const fiveYearsAgo = currentYear - 5;
+        console.log(data);
+        console.log(this.stockFunction);
+    
         if (typeof data === "object" && data !== null) {
-            console.log("stock data has been processed")
-            const processedData = Object.entries(
-                Object.entries(data[this.stockFunction])
-                    .filter(([date]) => {
-                        const year = parseInt(date.split("-")[0], 10)
-                        return year >= fiveYearsAgo
-                    })
-                    .map(([date, values]) => {
-                        return {
-                            date,
-                            close: parseFloat(values["4. close"])
-                        }
-                    }) 
-            )
-            console.log(processedData)
-            return processedData
+            console.log("stock data has been processed");
+            const processedData = Object.entries(data[this.stockFunction])
+                .filter(([date]) => {
+                    const year = parseInt(date.split("-")[0], 10); // Use date (the key)
+                    return year >= fiveYearsAgo;
+                })
+                .map(([date, values]) => ({
+                    date,
+                    close: parseFloat(values["4. close"]) // Fixed key name
+                }));
+    
+            console.log(processedData);
+            return processedData;
+        } else {
+            console.log("unable to read data");
+            return null;
         }
-        else {
-            console.log("unable to read data")
-            return null
-        }
-
     }
+    
 
     getSymbol() {
         return this.symbol
