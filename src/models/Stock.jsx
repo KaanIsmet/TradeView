@@ -22,28 +22,53 @@
 */
 
 
+
 export class Stock {
 
     constructor(symbol, stockFunction ,data) {
         this.symbol = symbol
-        this.stockFunction = stockFunction.split("_").join(" ")
+        let str = stockFunction.split("_")
+        str.reverse()
+        let temp = str[2]
+        str[2] = str[1]
+        str[1] = temp
+
+        for (let i = 0; i < str.length; i++) {
+            let word = str[i]
+            str[i] = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        }
+        this.stockFunction = str.join(" ").trim()
+
         this.timeSeries = this.processData(data)
 
     }
 
     processData(data) {
-        console.log(data)
-        console.log(this.stockFunction)
+        const currentYear = new Date().getFullYear();
+        const fiveYearsAgo = currentYear - 5;
+        console.log(data);
+        console.log(this.stockFunction);
+    
         if (typeof data === "object" && data !== null) {
-            console.log("stock data has been processed")
-            return data
+            console.log("stock data has been processed");
+            const processedData = Object.entries(data[this.stockFunction])
+                .filter(([date]) => {
+                    const year = parseInt(date.split("-")[0], 10); // Use date (the key)
+                    return year >= fiveYearsAgo;
+                })
+                .map(([date, values]) => ({
+                    date,
+                    close: parseFloat(values["4. close"]) // Fixed key name
+                }));
+    
+            console.log(processedData);
+            return processedData;
+        } else {
+            console.log("unable to read data");
+            return null;
         }
-        else {
-            console.log("unable to read data")
-            return null
-        }
-
     }
+    
 
     getSymbol() {
         return this.symbol
@@ -59,5 +84,13 @@ export class Stock {
 
     setTimeSeries(timeSeries) {
         this.timeSeries = timeSeries
+    }
+
+    getStockFunction() {
+        return this.stockFunction
+    }
+
+    setStockFunction(stockFunction) {
+        this.stockFunction = stockFunction
     }
 }

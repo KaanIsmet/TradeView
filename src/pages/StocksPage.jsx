@@ -30,9 +30,10 @@ function StocksPage() {
             }
             if (response.ok) {
                 const data = await response.json()
-                setStockData(data)
-                const stock = new Stock (symbol, stockFunction ,stockData)
-                console.log("stock confirmed")
+                const stock = new Stock (symbol, stockFunction ,data)
+                const timeSeries = stock.getTimeSeries() || {};
+                setStockData(timeSeries)
+                console.log(timeSeries)
             }
             else {
                 console.log("unable to fetch stock data")
@@ -60,6 +61,12 @@ function StocksPage() {
                     setInterval={setInterval}
                     handleSubmit={handleSubmit}
                 />
+
+                {stockData.length > 0 && (
+                    <div className="mt-8">
+                        <LinePlot data={stockData}/>
+                    </div>
+                )}
             </div>
         </div>
     )
