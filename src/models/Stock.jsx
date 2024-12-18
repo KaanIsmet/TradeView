@@ -22,52 +22,67 @@
 */
 
 
-
 export class Stock {
 
-    constructor(symbol, stockFunction ,data) {
+    constructor(symbol, stockFunction, interval ,data) {
         this.symbol = symbol
-        let str = stockFunction.split("_")
-        str.reverse()
-        let temp = str[2]
-        str[2] = str[1]
-        str[1] = temp
-
-        for (let i = 0; i < str.length; i++) {
-            let word = str[i]
-            str[i] = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        this.interval = interval
+        let str = ""
+        if (stockFunction === "TIME_SERIES_DAILY") {
+            str = "Time Series (Daily)"
+            this.stockFunction = str
+            this.timeSeries = this.processData(data)
         }
-        this.stockFunction = str.join(" ").trim()
 
-        this.timeSeries = this.processData(data)
+        else if (stockFunction === "TIME_SERIES_INTRADAY") { 
+            str = `Time Series (${this.interval})`
+        }
+        else {
+            str = stockFunction.split("_")
+            str.reverse()
+            let temp = str[2]
+            str[2] = str[1]
+            str[1] = temp
+        
+            
+            for (let i = 0; i < str.length; i++) {
+                let word = str[i]
+                str[i] = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+            }
+            this.stockFunction = str.join(" ").trim()
+
+            this.timeSeries = this.processData(data)
+
+        }
 
     }
 
     processData(data) {
         const currentYear = new Date().getFullYear();
         const fiveYearsAgo = currentYear - 5;
-        console.log(data);
-        console.log(this.stockFunction);
     
-        if (typeof data === "object" && data !== null) {
-            console.log("stock data has been processed");
-            const processedData = Object.entries(data[this.stockFunction])
-                .filter(([date]) => {
-                    const year = parseInt(date.split("-")[0], 10); // Use date (the key)
-                    return year >= fiveYearsAgo;
-                })
-                .map(([date, values]) => ({
-                    date,
-                    close: parseFloat(values["4. close"]) // Fixed key name
-                }));
+        console.log("Processing data:", data);
+        console.log("Stock function key:", this.stockFunction);
     
-            console.log(processedData);
-            return processedData;
-        } else {
-            console.log("unable to read data");
-            return null;
+        if (!data || typeof data !== "object" || !data[this.stockFunction]) {
+            console.error(`Invalid or missing data for key "${this.stockFunction}".`);
+            return [];
         }
+    
+        const processedData = Object.entries(data[this.stockFunction])
+            .filter(([date]) => {
+                const year = parseInt(date.split("-")[0], 10);
+                return year >= fiveYearsAgo;
+            })
+            .map(([date, values]) => ({
+                date,
+                close: parseFloat(values["4. close"])
+            }));
+    
+        console.log("Processed data:", processedData);
+        return processedData;
     }
+    
     
 
     getSymbol() {
@@ -92,5 +107,13 @@ export class Stock {
 
     setStockFunction(stockFunction) {
         this.stockFunction = stockFunction
+    }
+
+    getInterval() {
+        return this.getInterval
+    }
+
+    setInterval(interval) {
+        this.interval = interval
     }
 }
