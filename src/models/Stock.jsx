@@ -1,30 +1,8 @@
-/*data structures for Stock
-    stock
-        attributes
-        ~~~~~~~~~~
-        string symbol
-        TimeSeries timeSeries
-
-    TimeSeries
-        attributes
-        ~~~~~~~~~~
-        string timeSeries
-        Interval interval
-    
-    Interval
-        attributes
-        ~~~~~~~~~~
-        double open
-        double high
-        double low
-        double close
-        int volume
-*/
-
 
 export class Stock {
 
     constructor(symbol, stockFunction, interval ,data) {
+        console.log("creating stock")
         this.symbol = symbol
         this.interval = interval
         let str = ""
@@ -36,6 +14,8 @@ export class Stock {
 
         else if (stockFunction === "TIME_SERIES_INTRADAY") { 
             str = `Time Series (${this.interval})`
+            this.stockFunction = str
+            this.timeSeries = this.processData(data)
         }
         else {
             str = stockFunction.split("_")
@@ -60,6 +40,7 @@ export class Stock {
     processData(data) {
         const currentYear = new Date().getFullYear();
         const fiveYearsAgo = currentYear - 5;
+        let processedData = null;
     
         console.log("Processing data:", data);
         console.log("Stock function key:", this.stockFunction);
@@ -69,7 +50,16 @@ export class Stock {
             return [];
         }
     
-        const processedData = Object.entries(data[this.stockFunction])
+        if (this.interval != "") {
+            processedData = Object.entries(data[this.stockFunction])
+                .map(([date, values]) => ({
+                    date: new Date(date),
+                    close: parseFloat(values["4. close"])
+                }))
+                .sort((a, b) => a.date - b.date)
+                return processedData;
+        }
+        processedData = Object.entries(data[this.stockFunction])
             .filter(([date]) => {
                 const year = parseInt(date.split("-")[0], 10);
                 return year >= fiveYearsAgo;
