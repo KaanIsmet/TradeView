@@ -30,7 +30,7 @@ function StocksPage() {
             }
             if (response.ok) {
                 const data = await response.json()
-                const stock = new Stock (symbol, stockFunction ,data)
+                const stock = new Stock (symbol, stockFunction, interval ,data)
                 const timeSeries = stock.getTimeSeries() || {};
                 setStockData(timeSeries)
                 console.log(timeSeries)
