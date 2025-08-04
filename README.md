@@ -12,9 +12,7 @@ TradeView connects to the **TradeInsight** backend, which leverages the **Alpha 
 - **Interactive Stock Charts**: Visualize stock performance using advanced charting libraries like Chart.js or D3.js.
 - **Real-time Data Updates**: Stay updated with the latest market trends.
 - **Technical Indicators**: Explore moving averages, RSI, and other key indicators.
-- **User Authentication**: Secure login using OAuth.
-- **Custom Watchlists**: Save and monitor stocks of interest.
-- **News Integration**: Displays relevant financial news and trending articles.
+- **User Authentication**: Secure login using OAuth
 
 ### Backend (TradeInsight)
 - **Stock Data API**: Integrates with the Alpha Vantage API for real-time and historical stock data.
