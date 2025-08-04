@@ -35,8 +35,7 @@ TradeView connects to the **TradeInsight** backend, which leverages the **Alpha 
 ### Backend
 - **Spring Boot**: Java framework for building robust backend services.
 - **Alpha Vantage API**: Third-party API for stock data.
-- **PostgreSQL** / **MongoDB**: Database for storing user data and stock information.
-- **Python (Planned)**: For machine learning and predictive analytics.
+- **MySql**: Database for storing user data and stock information.
 
 ---
 
