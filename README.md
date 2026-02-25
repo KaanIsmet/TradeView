@@ -27,7 +27,7 @@ TradeView connects to the **TradeInsight** backend, which leverages the **Alpha 
 
 ### Frontend
 - **React.js**: Modern JavaScript library for building user interfaces.
-- **Chart.js** / **D3.js**: Data visualization libraries for interactive charts.
+- **D3.js**: Data visualization libraries for interactive charts.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 
 ### Backend
